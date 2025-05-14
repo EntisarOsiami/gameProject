@@ -1,4 +1,3 @@
-
 const api = "https://68219a2d259dad2655afc2ba.mockapi.io";
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -57,9 +56,7 @@ document.addEventListener("DOMContentLoaded", function () {
         throw new Error("Invalid data format from API");
       }
 
-      const user = users.find(u => u.username === username && u.password === password);
-
-      if (user) {
+      const user = users.find(u => u.username === username && u.password === password);      if (user) {
         localStorage.setItem("username", user.username);
         localStorage.setItem("fullName", user.fullName || "");
         
@@ -85,9 +82,16 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
-
   async function createInGameProfile(username) {
     try {
+      const checkResponse = await fetch(`${api}/inGame?username=${username}`);
+      const existingProfiles = await checkResponse.json();
+      
+      if (existingProfiles.length > 0) {
+        console.log("In-game profile already exists");
+        return existingProfiles[0];
+      }
+      
       const response = await fetch(`${api}/inGame`, {
         method: "POST",
         headers: {
@@ -100,22 +104,17 @@ document.addEventListener("DOMContentLoaded", function () {
           createdAt: new Date().toISOString()
         }),
       });
-
+      
       if (!response.ok) {
-        throw new Error("Failed to create inGame profile");
+        throw new Error(`Failed to create in-game profile: ${response.status}`);
       }
-
+      
       const inGameData = await response.json();
-      console.log("inGame profile created:", inGameData);
-      
-      // حفظ بيانات اللعبة في localStorage
-      localStorage.setItem("gameScore", "0");
-      localStorage.setItem("gameLevel", "0");
-      
+      console.log("In-game profile created:", inGameData);
       return inGameData;
     } catch (error) {
-      console.error("Error creating inGame profile:", error);
-      throw error;
+      console.error("Error creating in-game profile:", error);
+      return null;
     }
   }
 });
