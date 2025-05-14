@@ -17,13 +17,17 @@ document.addEventListener("DOMContentLoaded", () => {
   tileImage.src = "cactus.png";
   const floorImage = new Image();
   floorImage.src = "sand.png";
-
   document.addEventListener("keydown", (e) => {
     keys[e.key] = true;
 
     if (e.key === " " && gameOver) {
         restartGame();
-      }
+    }
+    
+    // ESC key to return to main menu
+    if (e.key === "Escape" && gameOver) {
+        window.location.href = "index.html";
+    }
   });
 
   document.addEventListener("keyup", (e) => {
@@ -176,12 +180,12 @@ document.addEventListener("DOMContentLoaded", () => {
       
       ctx.font = "60px Arial";
       ctx.fillText("Game Over", canvas.width / 2, canvas.height / 2 - 60);
-      
-      ctx.font = "30px Arial";
+        ctx.font = "30px Arial";
       ctx.fillText("Final Score: " + Math.floor(score), canvas.width / 2, canvas.height / 2);
-      ctx.fillText("Press the space key to play again", canvas.width / 2, canvas.height / 2 + 40);
+      ctx.fillText("Press SPACE to play again", canvas.width / 2, canvas.height / 2 + 40);
+      ctx.fillText("Press ESC to return to main menu", canvas.width / 2, canvas.height / 2 + 80);
       
-      return; 
+      return;
     }
     
 

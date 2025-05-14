@@ -3,6 +3,14 @@ let api = "https://68219a2d259dad2655afc2ba.mockapi.io";
 document.addEventListener("DOMContentLoaded", function () {
   const form = document.querySelector(".register-form");
   const register = document.querySelector(".register-btn");
+  const inputFields = document.querySelectorAll('input');
+  inputFields.forEach(input => {
+    input.addEventListener('input', function() {
+      const marioImage = document.getElementById("mario-register");
+      marioImage.src = "../images/mario.gif";
+      marioImage.style.width = ""; 
+    });
+  });
 
   register.addEventListener("click", function (e) {
     e.preventDefault();
@@ -114,16 +122,14 @@ document.addEventListener("DOMContentLoaded", function () {
           }
           let marioImage = document.getElementById("mario-register");
           marioImage.src = "../images/game-over.png";
-          marioImage.style.width = "50%";
-          return;
+          marioImage.style.width = "50%";          return;
         }
         localStorage.setItem("fullName", fullName);
         localStorage.setItem("username", username);
         localStorage.setItem("email", email);
-        localStorage.setItem("password", password);
         registerUser(fullName, username, email, password)
           .then(() => {
-            window.location.href = "../login/log-in.html";
+            window.location.href = "../index.html";
           })
           .catch(error => {
             console.error("Registration failed:", error);

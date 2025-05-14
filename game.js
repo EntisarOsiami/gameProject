@@ -83,10 +83,9 @@ document.addEventListener("keydown", (e) => {
   if (e.code === "Space") {
     if (gameState === GameState.MENU) {
       gameState = GameState.PLAYING;
-    } else if (
-      gameState === GameState.GAMEOVER ||
-      gameState === GameState.WIN
-    ) {
+    } else if (gameState === GameState.WIN) {
+      window.location.href = "level2.html";
+    } else if (gameState === GameState.GAMEOVER) {
       gameState = GameState.PLAYING;
       stats.health = stats.maxHP;
       stats.coins = 0;
@@ -101,6 +100,10 @@ document.addEventListener("keydown", (e) => {
       enemies.forEach((enemy) => {
         enemy.reset();
       });
+    }
+  } else if (e.code === "Escape") {
+    if (gameState === GameState.GAMEOVER || gameState === GameState.WIN) {
+      window.location.href = "index.html";
     }
   }
 });
@@ -231,7 +234,6 @@ class Player {
     const isOnBlock = this.hitBlock(prevX, prevY);
     this.checkGround(isOnBlock);
 
-    // Handle invincible state timer
     if (this.invincible) {
       this.invinceTimer += 16.67;
       if (this.invinceTimer >= this.INVINCE_TIME) {
@@ -254,7 +256,6 @@ class Player {
     });
   }
   enemyHit(enemies) {
-    // Skip collision checks if currently invincible
     if (this.invincible) return;
 
     enemies.forEach((enemy) => {
@@ -272,7 +273,6 @@ class Player {
             clearTimeout(this.hurtTimer);
           }
 
-          // Reset hurt state after a short period (300ms)
           this.hurtTimer = setTimeout(() => {
             this.isHurt = false;
             this.hurtTimer = null;
@@ -291,12 +291,10 @@ class Player {
   draw(offsetX) {
     ctx.save();
 
-    // If invincible, create a blinking effect
     if (
       this.invincible &&
       Math.floor(this.invinceTimer / this.blinkSpeed) % 2 === 0
     ) {
-      // Skip rendering every other blink frame
       ctx.globalAlpha = 0.5;
     }
 
@@ -819,11 +817,10 @@ function drawWinScreen() {
   ctx.save();
   ctx.fillStyle = "rgba(0, 0, 0, 0.5)";
   ctx.fillRect(0, 0, canvas.width, canvas.height);
-
   ctx.fillStyle = "#FFD700";
   ctx.font = "bold 48px Arial";
   ctx.textAlign = "center";
-  ctx.fillText("Mission Complete!", canvas.width / 2, canvas.height / 3);
+  ctx.fillText("Level Complete!", canvas.width / 2, canvas.height / 3);
 
   ctx.fillStyle = "white";
   ctx.font = "28px Arial";
@@ -852,13 +849,16 @@ function drawWinScreen() {
       iconSize,
       iconSize
     );
-  }
-
-  ctx.font = "24px Arial";
+  }  ctx.font = "24px Arial";
   ctx.fillText(
-    "Press SPACE to play again",
+    "Press SPACE to go to Level 2",
     canvas.width / 2,
     (canvas.height * 3) / 4 + 30
+  );
+  ctx.fillText(
+    "Press ESC to return to main menu",
+    canvas.width / 2,
+    (canvas.height * 3) / 4 + 60
   );
   ctx.restore();
 }
@@ -878,11 +878,15 @@ function drawGameOver() {
     `Coins Collected: ${stats.coins}`,
     canvas.width / 2,
     canvas.height / 2
-  );
-  ctx.fillText(
+  );  ctx.fillText(
     "Press SPACE to Try Again",
     canvas.width / 2,
     (canvas.height * 2) / 3
+  );
+  ctx.fillText(
+    "Press ESC to return to main menu",
+    canvas.width / 2,
+    (canvas.height * 2) / 3 + 30
   );
   ctx.restore();
 }

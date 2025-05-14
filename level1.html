@@ -24,8 +24,16 @@
     image-rendering: pixelated;
   }</style>
 </head>
-<body>
-  <canvas id="gameCanvas" width="1280" height="720"></canvas>
+<body>  <canvas id="gameCanvas" width="1280" height="720"></canvas>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const username = localStorage.getItem("username");
+      if (!username) {
+        alert("You must be logged in to play this game!");
+        window.location.href = "login/log-in.html";
+      }
+    });
+  </script>
   <script src="game.js"></script>
 </body>
 </html>

@@ -75,6 +75,55 @@
     outline: none;
   }
 
+  .btn-start:hover {
+    background-color: #ff6f47;
+    transform: translateY(-2px) scale(1.05);
+  }
+
+  .btn-register {
+    display: inline-block;
+    background-color: #4CAF50;
+    color: white;
+    padding: 12px 30px;
+    margin-top: 15px;
+    text-decoration: none;
+    border-radius: 40px;
+    font-weight: bold;
+    font-size: 18px;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  }
+
+  .btn-register:hover {
+    background-color: #45a049;
+    transform: translateY(-2px);
+  }
+
+  .btn-logout {
+    display: inline-block;
+    background-color: #e74c3c;
+    color: white;
+    padding: 12px 30px;
+    margin-top: 15px;
+    margin-left: 10px;
+    text-decoration: none;
+    border-radius: 40px;
+    font-weight: bold;
+    font-size: 18px;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  }
+
+  .btn-logout:hover {
+    background-color: #c0392b;
+    transform: translateY(-2px);
+  }
   
   .circle, .square, .triangle {
     position: absolute;
@@ -105,6 +154,27 @@
     border-bottom: 38px solid #8bc34a;
     bottom: 30px;
     left: 30px;
+  }
+
+  .game-image {
+    margin: 20px auto;
+    max-width: 200px;
+  }
+
+  .character-image {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    animation: float 2s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
   }
 
   @media (max-width: 480px) {
