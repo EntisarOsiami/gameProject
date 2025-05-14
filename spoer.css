@@ -1,0 +1,134 @@
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap');
+
+ 
+  * {
+    box-sizing: border-box;
+  }
+  body {
+    margin: 0;
+    padding: 50px 20px;
+    font-family: 'Cairo', sans-serif;
+    background: linear-gradient(135deg, #6baceb, #3a76f0);
+    color: #f0f4f9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+  }
+
+  
+  .container {
+    background-color: #1e2a47dd; 
+    max-width: 720px;
+    padding: 40px 50px;
+    border-radius: 20px;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+    text-align: center;
+    position: relative;
+  }
+
+  
+  .title {
+    font-weight: 900;
+    font-size: 2.8rem;
+    margin-bottom: 12px;
+    letter-spacing: 1.5px;
+    text-shadow: 0 2px 6px rgba(0,0,0,0.7);
+  }
+  .subtitle {
+    font-weight: 700;
+    font-size: 2.4rem;
+    margin-bottom: 30px;
+    color: #fbbc04;
+    text-shadow: 0 2px 8px rgba(251,188,4,0.7);
+  }
+
+  .description {
+    font-size: 1.25rem;
+    line-height: 1.75;
+    color: #e2e8f0cc;
+    max-width: 600px;
+    margin: 0 auto 40px;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+  }
+
+  .btn-start {
+    background: linear-gradient(45deg, #fbbc04, #f16522);
+    color: #1e2a47;
+    font-weight: 800;
+    border: none;
+    padding: 16px 48px;
+    border-radius: 50px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    box-shadow: 0 6px 15px rgba(251,188,4,0.6);
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+    user-select: none;
+  }
+  .btn-start:hover,
+  .btn-start:focus {
+    background: linear-gradient(45deg, #f16522, #d4521c);
+    color: white;
+    box-shadow: 0 8px 20px rgba(255,140,0,0.8);
+    outline: none;
+  }
+
+  
+  .circle, .square, .triangle {
+    position: absolute;
+    opacity: 0.15;
+    filter: drop-shadow(0 0 2px rgba(0,0,0,0.1));
+  }
+  .circle {
+    width: 36px;
+    height: 36px;
+    border: 4px solid #fbbc04;
+    border-radius: 50%;
+    top: 30px;
+    left: 30px;
+  }
+  .square {
+    width: 36px;
+    height: 36px;
+    background-color: #3a76f0;
+    border-radius: 7px;
+    top: 30px;
+    right: 30px;
+  }
+  .triangle {
+    width: 0;
+    height: 0;
+    border-left: 22px solid transparent;
+    border-right: 22px solid transparent;
+    border-bottom: 38px solid #8bc34a;
+    bottom: 30px;
+    left: 30px;
+  }
+
+  @media (max-width: 480px) {
+    body {
+      padding: 30px 10px;
+    }
+    .container {
+      padding: 30px 25px;
+      max-width: 90vw;
+    }
+    .title {
+      font-size: 2rem;
+    }
+    .subtitle {
+      font-size: 1.8rem;
+    }
+    .description {
+      font-size: 1rem;
+    }
+    .btn-start {
+      padding: 14px 36px;
+      font-size: 1rem;
+    }
+    .circle, .square, .triangle {
+      opacity: 0.1;
+    }
+  }
