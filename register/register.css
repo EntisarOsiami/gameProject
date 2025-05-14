@@ -291,10 +291,10 @@
     /* margin: 2%; */
     font-weight: bold;
   }
-  .inputs {
+  /* .inputs { */
     /* margin: 2%; */
     /* padding: 2%; */
-  }
+  /* } */
   .input-feilds {
     display: flex;
     flex-direction: column;
