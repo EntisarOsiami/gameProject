@@ -7,23 +7,20 @@ document.addEventListener("DOMContentLoaded", function () {
   register.addEventListener("click", function (e) {
     e.preventDefault();
 
-    // Get input values
     const fullName = document.getElementById("fullName").value;
     const username = document.getElementById("username").value;
     const email = document.getElementById("email").value;
     const password = document.getElementById("pass").value;
     const confirmPass = document.getElementById("conPass").value;
 
-    // Get span elements for error messages
     const fullNameSpan = document.getElementById("fullName-span");
     const usernameSpan = document.getElementById("username-span");
     const emailSpan = document.getElementById("email-span");
     const passSpan = document.getElementById("pass-span");
     const conPassSpan = document.getElementById("conPass-span");
 
-    // Reset error messages
     fullNameSpan.textContent =
-      "Please enter your first and last name as it appears on official documents.";
+      "Please enter your first and last name";
     usernameSpan.textContent = "Your unique username for logging in.";
     emailSpan.textContent = "We'll never share your email with anyone else.";
     passSpan.textContent = "Use at least 8 characters, including a number.";
@@ -37,7 +34,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     let isValid = true;
 
-    // Full Name Validation
     if (!fullName) {
       fullNameSpan.textContent = "Full name is required";
       fullNameSpan.style.color = "red";
@@ -49,7 +45,6 @@ document.addEventListener("DOMContentLoaded", function () {
       isValid = false;
     }
 
-    // Username Validation
     if (!username) {
       usernameSpan.textContent = "Username is required";
       usernameSpan.style.color = "red";
@@ -65,7 +60,6 @@ document.addEventListener("DOMContentLoaded", function () {
       isValid = false;
     }
 
-    // Email Validation
     if (!email) {
       emailSpan.textContent = "Email is required";
       emailSpan.style.color = "red";
@@ -76,7 +70,6 @@ document.addEventListener("DOMContentLoaded", function () {
       isValid = false;
     }
 
-    // Password Validation
     if (!password) {
       passSpan.textContent = "Password is required";
       passSpan.style.color = "red";
@@ -91,7 +84,6 @@ document.addEventListener("DOMContentLoaded", function () {
       isValid = false;
     }
 
-    // Confirm Password Validation
     if (!confirmPass) {
       conPassSpan.textContent = "Please confirm your password";
       conPassSpan.style.color = "red";
@@ -106,23 +98,36 @@ document.addEventListener("DOMContentLoaded", function () {
       let marioImage = document.getElementById("mario-register");
       marioImage.src = "../images/game-over.png";
       marioImage.style.width = "50%";
-      return; // Exit if not valid
+      return; 
     }
 
-    // If all validations pass
-    localStorage.setItem("fullName", fullName);
-    localStorage.setItem("username", username);
-    localStorage.setItem("email", email);
-    localStorage.setItem("password", password);
-    console.log("here");
-    
-    // Call the register function instead of login
-    registerUser(fullName, username, email, password)
-      .then(() => {
-        window.location.href = "../login/log-in.html";
-      })
-      .catch(error => {
-        console.error("Registration failed:", error);
+    checkUserExists(username, email)
+      .then(exists => {
+        if (exists) {
+          if (exists.username) {
+            usernameSpan.textContent = "Username already taken";
+            usernameSpan.style.color = "red";
+          }
+          if (exists.email) {
+            emailSpan.textContent = "Email already registered";
+            emailSpan.style.color = "red";
+          }
+          let marioImage = document.getElementById("mario-register");
+          marioImage.src = "../images/game-over.png";
+          marioImage.style.width = "50%";
+          return;
+        }
+        localStorage.setItem("fullName", fullName);
+        localStorage.setItem("username", username);
+        localStorage.setItem("email", email);
+        localStorage.setItem("password", password);
+        registerUser(fullName, username, email, password)
+          .then(() => {
+            window.location.href = "../login/log-in.html";
+          })
+          .catch(error => {
+            console.error("Registration failed:", error);
+          });
       });
   });
 });
@@ -147,4 +152,16 @@ async function registerUser(fullName, username, email, password) {
     throw new Error("Failed to register user");
   }
   return response.json();
+}
+
+async function checkUserExists(username, email) {
+  const response = await fetch(`${api}/register`);
+  if (!response.ok) return false;
+  const users = await response.json();
+  let exists = { username: false, email: false };
+  users.forEach(user => {
+    if (user.username === username) exists.username = true;
+    if (user.email === email) exists.email = true;
+  });
+  return (exists.username || exists.email) ? exists : false;
 }

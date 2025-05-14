@@ -16,7 +16,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const usernameSpan = document.getElementById("login-username-span");
     const passwordSpan = document.getElementById("login-pass-span");
 
-    // Reset messages
     usernameSpan.textContent = "Your unique username for logging in.";
     usernameSpan.style.color = "";
     passwordSpan.textContent = "Enter your password.";
@@ -24,7 +23,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     let isValid = true;
 
-    // Validation
     if (!username) {
       usernameSpan.textContent = "Username is required";
       usernameSpan.style.color = "red";
@@ -44,7 +42,6 @@ document.addEventListener("DOMContentLoaded", function () {
     if (!isValid) return;
 
     try {
-      // Show loading state
       loginBtn.disabled = true;
       loginBtn.textContent = "Loading...";
 
@@ -76,7 +73,6 @@ document.addEventListener("DOMContentLoaded", function () {
         passwordSpan.textContent = "Username or password is incorrect";
         passwordSpan.style.color = "red";
         
-        // Clear password field
         passwordInput.value = "";
         passwordInput.focus();
       }
@@ -84,7 +80,6 @@ document.addEventListener("DOMContentLoaded", function () {
       console.error("Login error:", error);
       alert("Failed to connect to server. Please try again later.");
     } finally {
-      // Reset button state
       loginBtn.disabled = false;
       loginBtn.textContent = "Sign In";
     }
