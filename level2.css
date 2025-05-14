@@ -1,0 +1,13 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+  }
+
+  canvas {
+    display: block;
+    background: linear-gradient(rgba(0, 0, 0, 0.375), rgba(0, 0, 0, 0.386)), url("bg5.png") center/cover;
+    width: 100vw;
+    height: 100vh;
+  }
+  
