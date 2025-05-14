@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+    <link rel="stylesheet" href="./log-in.css" />
+  </head>
+  <body>
+    <section class="main-page-sec-1">
+      <nav>
+        <div class="logo">
+          <img src="../images/logo.png" alt="" />
+        </div>
+      </nav>
+    </section>
+    <section class="log-in-sec">
+      <div class="log-in-sec-left">
+        <div class="login-form-container">
+          <p class="log-in-title">Log In</p>
+          <form class="login-form">
+            <div class="login-inputs">
+              <!-- user name -->
+              <div class="login-input-feilds">
+                <label for="username-login">USERNAME:</label>
+                <input type="text" id="username-login" placeholder="user_1" />
+                <span class="span" id="login-username-span"
+                  >Your unique username for logging in.</span
+                >
+              </div>
+              <!-- password -->
+              <div class="input-feilds">
+                <label for="pass-login">PASSWORD:</label>
+                <input type="password" id="pass-login" placeholder="**********" />
+                <span class="span" id="login-pass-span"
+                  >Use at least 8 characters, including a number.</span
+                >
+              </div>
+              <!-- submit button -->
+              <div class="input-btn">
+                <a href="../Products/main-page.html">
+                  <button class="sign-in-btn btn">Sign In</button>
+                </a>
+              </div>
+
+              <div class="input-feilds">
+                <p class="have-account">
+                  Create new Account? <a href="./sinIn.html"> press here</a>
+                </p>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="log-in-sec-right">
+        <img src="../images/mario.gif" alt="" width="" />
+      </div>
+    </section>
+    <script src="./log-in.js"></script>
+  </body>
+</html>

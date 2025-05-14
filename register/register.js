@@ -119,7 +119,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Call the register function instead of login
     registerUser(fullName, username, email, password)
       .then(() => {
-        // window.location.href = "../logIn/log-in.html";
+        window.location.href = "../login/log-in.html";
       })
       .catch(error => {
         console.error("Registration failed:", error);
