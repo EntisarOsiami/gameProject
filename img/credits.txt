@@ -1,0 +1,11 @@
+Art Assets Credits
+
+The game uses art assets from "Platform Art Pixel Redux" pack created by Kenney (www.kenney.nl)
+License: CC0 1.0 Universal (CC0 1.0)
+Source: https://www.kenney.nl/assets/platformer-art-pixel-redux
+
+This amazing asset pack is free to use in personal and commercial projects.
+Please consider supporting Kenney's work by:
+- Visiting www.kenney.nl
+- Contributing at https://www.patreon.com/kenney
+- Crediting "Kenney" or "www.kenney.nl" in your projects (optional but appreciated)
