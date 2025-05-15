@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
       // ESC key to return to main menu
     if ((e.key === "Escape" || e.key === "Esc" || e.code === "Escape") && gameOver) {
-        window.location.href = "./index.html"; 
+        window.location.href("index.html");
     }
   });
 
