@@ -81,32 +81,25 @@ const FLOOR_Y = canvas.height - 60;
 
 let keys = {};
 document.addEventListener("keydown", (e) => {
-  keys[e.code] = true;
-  if (e.code === "Space") {
-    if (gameState === GameState.MENU) {
-      gameState = GameState.PLAYING;
-    } else if (gameState === GameState.WIN) {
-      window.location.href = "level2.html";
-    } else if (gameState === GameState.GAMEOVER) {
-      gameState = GameState.PLAYING;
-      stats.health = stats.maxHP;
-      stats.coins = 0;
-      player.x = 100;
-      player.y = FLOOR_Y - player.height;
-      player.vx = 0;
-      player.vy = 0;
-      player.isHurt = false;
-      player.invincible = false;
-      player.invinceTimer = 0;
-      collectibles.forEach((item) => (item.collected = false));
-      enemies.forEach((enemy) => {
-        enemy.reset();
-      });
-    }
-  } else if (e.code === "Escape") {
-    if (gameState === GameState.GAMEOVER || gameState === GameState.WIN) {
-      window.location.href = "index.html";
-    }
+  keys[e.key] = true;
+
+  if (e.code === "Space" && (gameState === GameState.GAMEOVER || gameState === GameState.WIN)) {
+    gameState = GameState.PLAYING;
+    stats.health = stats.maxHP;
+    stats.coins = 0;
+    player.x = 100;
+    player.y = FLOOR_Y - player.height;
+    player.vx = 0;
+    player.vy = 0;
+    player.isHurt = false;
+    player.invincible = false;
+    player.invinceTimer = 0;
+    collectibles.forEach((item) => (item.collected = false));
+    enemies.forEach((enemy) => {
+      enemy.reset();
+    });
+  } else if ((e.code === "Escape" || e.key === "Escape" || e.key === "Esc") && (gameState === GameState.GAMEOVER || gameState === GameState.WIN)) {
+    window.location.href = "index.html";
   }
 });
 document.addEventListener("keyup", (e) => (keys[e.code] = false));
@@ -962,18 +955,21 @@ function gameLoop() {
     ) {
       spaceship.update();
       spaceship.draw(scrollOffset);
-      if (spaceship.collides(player)) {
-        let finalScore = (stats.coins + stats.health) * 100;
+      if (spaceship.collides(player)) {        let finalScore = (stats.coins + stats.health) * 100;
         stats.score = finalScore;
-        // Store score in localStorage
         localStorage.setItem("level1_score", finalScore);
-        // Send score to API using the same base as register.js
         const username = localStorage.getItem("username") || "guest";
-        fetch(`${api}/inGame`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ username: username, score: finalScore, level: 1, createdAt: new Date().toISOString() }),
-        });
+        try {
+          fetch(`${api}/inGame`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ username: username, score: finalScore, level: 1, createdAt: new Date().toISOString() }),
+          }).catch(error => {
+            console.error("error:", error);
+          });
+        } catch(error) {
+          console.error("error:", error);
+        }
         gameState = GameState.WIN;
       }
     }

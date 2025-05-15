@@ -6,8 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
   let scrollSpeed = 11;
   let offset = 0;
   const keys = {};
-  let pipeInterval = 400;
-  let score = 0;
+  let pipeInterval = 400;  let score = 0;
   let gameOver = false;
   
   const api = "https://68219a2d259dad2655afc2ba.mockapi.io";
@@ -20,15 +19,12 @@ document.addEventListener("DOMContentLoaded", () => {
   const floorImage = new Image();
   floorImage.src = "sand.png";
   document.addEventListener("keydown", (e) => {
-    keys[e.key] = true;
-
-    if (e.key === " " && gameOver) {
+    keys[e.key] = true;    if (e.key === " " && gameOver) {
         restartGame();
     }
-    
-    // ESC key to return to main menu
-    if (e.key === "Escape" && gameOver) {
-        window.location.href = "index.html";
+      // ESC key to return to main menu
+    if ((e.key === "Escape" || e.key === "Esc" || e.code === "Escape") && gameOver) {
+        window.location.replace("index.html");
     }
   });
 
@@ -185,16 +181,22 @@ document.addEventListener("DOMContentLoaded", () => {
         ctx.font = "30px Arial";
       ctx.fillText("Final Score: " + Math.floor(score), canvas.width / 2, canvas.height / 2);
       ctx.fillText("Press SPACE to play again", canvas.width / 2, canvas.height / 2 + 40);
-      ctx.fillText("Press ESC to return to main menu", canvas.width / 2, canvas.height / 2 + 80);
-      // Store score in localStorage and send to API
+      ctx.fillText("Press ESC to return to main menu", canvas.width / 2, canvas.height / 2 + 80);      
       const finalScore = Math.floor(score);
       localStorage.setItem("level2_score", finalScore);
       const username = localStorage.getItem("username") || "guest";
-      fetch(`${api}/inGame`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username: username, score: finalScore, level: 2, createdAt: new Date().toISOString() }),
-      });
+      
+      try {
+        fetch(`${api}/inGame`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ username: username, score: finalScore, level: 2, createdAt: new Date().toISOString() }),
+        }).catch(error => {
+          console.error("error:", error);
+        });
+      } catch(error) {
+        console.error("error:", error);
+      }
       return;
     }
     
