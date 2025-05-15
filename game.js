@@ -1,3 +1,5 @@
+const api = "https://68219a2d259dad2655afc2ba.mockapi.io";
+
 let canvas = document.getElementById("gameCanvas");
 let ctx = canvas.getContext("2d");
 
@@ -963,6 +965,15 @@ function gameLoop() {
       if (spaceship.collides(player)) {
         let finalScore = (stats.coins + stats.health) * 100;
         stats.score = finalScore;
+        // Store score in localStorage
+        localStorage.setItem("level1_score", finalScore);
+        // Send score to API using the same base as register.js
+        const username = localStorage.getItem("username") || "guest";
+        fetch(`${api}/inGame`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ username: username, score: finalScore, level: 1, createdAt: new Date().toISOString() }),
+        });
         gameState = GameState.WIN;
       }
     }

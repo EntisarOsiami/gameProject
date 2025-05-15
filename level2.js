@@ -10,6 +10,8 @@ document.addEventListener("DOMContentLoaded", () => {
   let score = 0;
   let gameOver = false;
   
+  const api = "https://68219a2d259dad2655afc2ba.mockapi.io";
+
   // Load images
   const marioImage = new Image();
   marioImage.src = "player.png";
@@ -184,7 +186,15 @@ document.addEventListener("DOMContentLoaded", () => {
       ctx.fillText("Final Score: " + Math.floor(score), canvas.width / 2, canvas.height / 2);
       ctx.fillText("Press SPACE to play again", canvas.width / 2, canvas.height / 2 + 40);
       ctx.fillText("Press ESC to return to main menu", canvas.width / 2, canvas.height / 2 + 80);
-      
+      // Store score in localStorage and send to API
+      const finalScore = Math.floor(score);
+      localStorage.setItem("level2_score", finalScore);
+      const username = localStorage.getItem("username") || "guest";
+      fetch(`${api}/inGame`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username: username, score: finalScore, level: 2, createdAt: new Date().toISOString() }),
+      });
       return;
     }
     
