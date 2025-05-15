@@ -82,8 +82,13 @@ const FLOOR_Y = canvas.height - 60;
 let keys = {};
 document.addEventListener("keydown", (e) => {
   keys[e.key] = true;
-
-  if (e.code === "Space" && (gameState === GameState.GAMEOVER || gameState === GameState.WIN)) {
+  if (gameState === GameState.MENU && (e.code === "Space" || e.key === " ")) {
+    gameState = GameState.PLAYING;
+    stats.health = stats.maxHP;
+    stats.coins = 0;
+  } else if ((e.code === "Space" || e.key === " ") && gameState === GameState.WIN) {
+    window.location.href = "level2.html";
+  } else if ((e.code === "Space" || e.key === " ") && gameState === GameState.GAMEOVER) {
     gameState = GameState.PLAYING;
     stats.health = stats.maxHP;
     stats.coins = 0;
@@ -102,7 +107,11 @@ document.addEventListener("keydown", (e) => {
     window.location.href = "index.html";
   }
 });
-document.addEventListener("keyup", (e) => (keys[e.code] = false));
+document.addEventListener("keyup", (e) => {
+  // Store both key and code for maximum compatibility
+  keys[e.key] = false;
+  keys[e.code] = false;
+});
 
 class Player {
   constructor() {

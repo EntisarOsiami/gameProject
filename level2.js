@@ -17,14 +17,13 @@ document.addEventListener("DOMContentLoaded", () => {
   const tileImage = new Image();
   tileImage.src = "cactus.png";
   const floorImage = new Image();
-  floorImage.src = "sand.png";
-  document.addEventListener("keydown", (e) => {
+  floorImage.src = "sand.png";  document.addEventListener("keydown", (e) => {
     keys[e.key] = true;    if (e.key === " " && gameOver) {
         restartGame();
     }
       // ESC key to return to main menu
     if ((e.key === "Escape" || e.key === "Esc" || e.code === "Escape") && gameOver) {
-        window.location.replace("index.html");
+        window.location.href = "./index.html"; 
     }
   });
 
